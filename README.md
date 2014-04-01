@@ -1,8 +1,27 @@
-# SkyThumbnails
+![Concentric Sky](https://concentricsky.com/media/uploads/images/csky_logo.jpg)
 
-This library provides a model field, ``EnhancedImageField``, which adds thumbnail support to the default ``ImageField``.
 
-## Settings.py
+# Sky Thumbnails
+
+Sky Thumbnails is an open-source Django library developed by [Concentric Sky](http://concentricsky.com/). It provides a model field, ``EnhancedImageField``, which adds thumbnail support to the default ``ImageField``.
+
+
+### Table of Contents
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [How to Use](#how-to-use)
+- [License](#license)
+- [About Concentric Sky](#about-concentric-sky)
+
+
+## Installation
+
+    pip install git+https://github.com/concentricsky/django-skythumbnails.git
+
+
+## Getting Started
+
+Add the following to your `settings.py`:
 
 ### Required settings
 
@@ -109,7 +128,11 @@ Valid values are those supported by the *Python Imaging Library* (PIL). If it is
 
 ## LICENSE
 
-This project is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). 
+This project is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). Details can be found in the LICENSE.md file.
 
-For copyright and other important notes regarding this release please read the AUTHORS file.
+For copyright and other important notes regarding this release please read the AUTHORS.md file.
 
+
+## About Concentric Sky
+
+_For nearly a decade, Concentric Sky has been building technology solutions that impact people everywhere. We work in the mobile, enterprise and web application spaces. Our team, based in Eugene Oregon, loves to solve complex problems. Concentric Sky believes in contributing back to our community and one of the ways we do that is by open sourcing our code on GitHub. Contact Concentric Sky at hello@concentricsky.com._
