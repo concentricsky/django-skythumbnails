@@ -126,7 +126,7 @@ This is the format in which the thumbnail should be saved.
 Valid values are those supported by the *Python Imaging Library* (PIL). If it is not set, then the default format specified by the ``THUMBNAILS_FORMAT`` setting will be used. In case the format is set to ``JPEG``, the value of the ``THUMBNAILS_QUALITY`` is used as the quality when the image is saved.
 
 
-## LICENSE
+## License
 
 This project is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). Details can be found in the LICENSE.md file.
 
