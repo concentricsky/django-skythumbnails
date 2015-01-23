@@ -163,6 +163,7 @@ class BaseEnhancedImageFieldFile(ImageFieldFile):
       EnhancedImageField.
 
     """
+    thumbnail_class = ThumbnailFieldFile
 
     def __init__(self, instance, field, name):
         """Constructor
@@ -208,7 +209,7 @@ class BaseEnhancedImageFieldFile(ImageFieldFile):
         # Set thumbnail objects as attributes.
         if self._verify_thumbnail_requirements():
             for identifier, proc_opts in self.field.thumbnails.items():
-                t = ThumbnailFieldFile(self.instance, self.field, self, self.name, identifier, proc_opts)
+                t = self.thumbnail_class(self.instance, self.field, self, self.name, identifier, proc_opts)
                 if self.storage.exists(t.name):
                     setattr(self, identifier, t)
     
@@ -263,7 +264,7 @@ class BaseEnhancedImageFieldFile(ImageFieldFile):
                 self._require_file()    # TODO: document this
                 if self._verify_thumbnail_requirements():
                     proc_opts = self.field.thumbnails[attribute]
-                    t = ThumbnailFieldFile(self.instance, self.field, self, self.name, attribute, proc_opts)
+                    t = self.thumbnail_class(self.instance, self.field, self, self.name, attribute, proc_opts)
                     t.save()
             else:
                 return super(BaseEnhancedImageFieldFile, self).__getattr__(attribute)
@@ -307,7 +308,7 @@ class BaseEnhancedImageFieldFile(ImageFieldFile):
         # Generate all thumbnails
         if self._verify_thumbnail_requirements():
             for identifier, proc_opts in self.field.thumbnails.items():
-                t = ThumbnailFieldFile(self.instance, self.field, self, self.name, identifier, proc_opts)
+                t = self.thumbnail_class(self.instance, self.field, self, self.name, identifier, proc_opts)
                 t.save(content)
 
     def delete(self, save=True):
@@ -319,7 +320,7 @@ class BaseEnhancedImageFieldFile(ImageFieldFile):
         # First try to delete the thumbnails
         if self._verify_thumbnail_requirements():
             for identifier, proc_opts in self.field.thumbnails.items():
-                t = ThumbnailFieldFile(self.instance, self.field, self, self.name, identifier, proc_opts)
+                t = self.thumbnail_class(self.instance, self.field, self, self.name, identifier, proc_opts)
                 t.delete()
 
         # Delete the source file
@@ -470,4 +471,4 @@ class EnhancedImageField(ImageField):
         from south.modelsinspector import introspector
         field_class = 'django.db.models.fields.files.ImageField'
         args, kwargs = introspector(self)
-        return (field_class, args, kwargs) 
+        return (field_class, args, kwargs)
