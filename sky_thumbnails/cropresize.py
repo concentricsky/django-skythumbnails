@@ -80,6 +80,21 @@ def crop_resize(image, size, exact_size=False):
 
     size = list(size)
 
+    try:
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
+        exif = dict(image._getexif().items())
+
+        if exif[orientation] == 3:
+            image = image.rotate(180, expand=True)
+        elif exif[orientation] == 6:
+            image = image.rotate(270, expand=True)
+        elif exif[orientation] == 8:
+            image = image.rotate(90, expand=True)
+    except (AttributeError, KeyError, IndexError):
+        pass
+
     image_ar = image.size[0]/float(image.size[1])
     crop = size[0] and size[1]
     if not size[1]:
@@ -150,22 +165,6 @@ def main():
     # resize the images
     for arg in args:
         image = Image.open(arg)
-
-        try:
-            for orientation in ExifTags.TAGS.keys():
-                if ExifTags.TAGS[orientation] == 'Orientation':
-                    break
-            exif = dict(image._getexif().items())
-
-            if exif[orientation] == 3:
-                image = image.rotate(180, expand=True)
-            elif exif[orientation] == 6:
-                image = image.rotate(270, expand=True)
-            elif exif[orientation] == 8:
-                image = image.rotate(90, expand=True)
-        except (AttributeError, KeyError, IndexError):
-            pass
-
         new_image = crop_resize(image, (width, height), options.exact)
         if options.display:
             new_image.show()
