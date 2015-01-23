@@ -2,6 +2,8 @@
 """
 The following code comes from cropresize, and is frozen here due to issues with PIL dependency:
 
+NOTE: Updated to handle iOS photos wrt rotation. See http://stackoverflow.com/a/11543365/931277.
+
 Metadata-Version: 1.0
 Name: cropresize
 Version: 0.1.6
@@ -60,7 +62,7 @@ import sys
 try:
     import Image
 except ImportError:
-    from PIL import Image
+    from PIL import Image, ExifTags
 
 def crop_resize(image, size, exact_size=False):
     """
@@ -148,6 +150,22 @@ def main():
     # resize the images
     for arg in args:
         image = Image.open(arg)
+
+        try:
+            for orientation in ExifTags.TAGS.keys():
+                if ExifTags.TAGS[orientation] == 'Orientation':
+                    break
+            exif = dict(image._getexif().items())
+
+            if exif[orientation] == 3:
+                image = image.rotate(180, expand=True)
+            elif exif[orientation] == 6:
+                image = image.rotate(270, expand=True)
+            elif exif[orientation] == 8:
+                image = image.rotate(90, expand=True)
+        except (AttributeError, KeyError, IndexError):
+            pass
+
         new_image = crop_resize(image, (width, height), options.exact)
         if options.display:
             new_image.show()
