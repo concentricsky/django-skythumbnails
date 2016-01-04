@@ -259,7 +259,7 @@ class BaseEnhancedImageFieldFile(ImageFieldFile):
         if not self.__dict__.has_key(attribute):
             # Proceed to thumbnail generation only if a *thumbnail* attribute
             # is requested
-            if self.field.thumbnails.has_key(attribute):
+            if self.__dict__.has_key('field') and self.field.thumbnails.has_key(attribute):
                 # Generate thumbnail
                 self._require_file()    # TODO: document this
                 if self._verify_thumbnail_requirements():
