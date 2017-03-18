@@ -74,10 +74,10 @@ class BaseThumbnailFieldFile(ImageFieldFile):
         super(BaseThumbnailFieldFile, self).__init__(instance, field, name)
 
     def get_identifier(self, identifier):
-        if not isinstance(identifier, str):
+        if not isinstance(identifier, str) and not isinstance(identifier, unicode):
             raise ThumbnailOptionError('The identifier must be a string')
         elif identifier == '':
-            raise ThumbnailOptionError('The identifier must be set to something on thumbnails')
+            raise ThumbnailOptionError('An identifier (key) for the thumbnails dictionary was blank')
         return identifier.replace(' ', '_')
 
     def save(self, source_content=None):
