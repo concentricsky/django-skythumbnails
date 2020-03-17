@@ -6,7 +6,8 @@ setup(
     version=".".join(map(str, sky_thumbnails.VERSION)),
     packages = find_packages(),
     install_requires=[
-        'PILLOW>=1.7.7'
+        'PILLOW>=7.0.0',
+        'six'
     ],
 
     author = 'Concentric Sky',
