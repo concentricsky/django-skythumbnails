@@ -20,10 +20,8 @@
 
 import os
 
-try:
-    from io import StringIO
-except ImportError:
-    from io import StringIO
+from io import BytesIO
+
 try:
     from PIL import Image, ImageFilter
 except ImportError:
@@ -199,7 +197,7 @@ class ImageProcessor:
 
         # Save image data
         format = self.proc_opts['format']
-        buffer = StringIO()
+        buffer = BytesIO()
 
         if format == 'JPEG':
             im.save(buffer, format, quality=settings.THUMBNAILS_QUALITY)
