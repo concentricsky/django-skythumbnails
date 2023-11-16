@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	{% if photo.image %}
+		<h1>{{ photo.title }}</h1>
+
+		<table border="1">
+
+			<tr>
+				<td style="text-align:center">Full Image</td>
+				<td style="text-align:center">Medium Image</td>
+				<td style="text-align:center">Small Image</td>
+				<td style="text-align:center">Icon Image</td>
+			</tr>
+
+			<tr>
+
+				<td style="text-align:center">
+		        	<!-- Reference the full-size image with object_name.image_attribute.url -->
+		        	<img src="{{ photo.image.url }}" alt="Full image" />
+		        </td>
+
+		        {% if photo.image.medium %}
+		    		<td style="text-align:center">
+		    			<!-- Reference thumbnail sizes with object_name.image_attribute.size_name.url -->
+		    			<img src="{{photo.image.medium.url}}" alt="Medium image" />
+		    		</td>
+		        {% endif %}
+				{% if photo.image.small %}
+		    		<td style="text-align:center">
+		    			<!-- Reference thumbnail sizes with object_name.image_attribute.size_name.url -->
+		    			<img src="{{photo.image.small.url}}" alt="Small image" />
+		    		</td>
+		        {% endif %}
+		        {% if object.image.icon %}
+		    		<td style="text-align:center">
+		    			<!-- Reference thumbnail sizes with object_name.image_attribute.size_name.url -->
+		    			<img src="{{ object.image.icon.url }}" alt="Icon image" />
+		    		</td>
+		        {% endif %}
+
+		    </tr>
+
+	{% endif %}
+
+{% endblock %}
